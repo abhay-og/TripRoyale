@@ -1,15 +1,15 @@
-// import { Button, CssBaseline, Grid, Typography } from '@mui/material';
-// import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import { unSetUserToken } from '../features/authSlice';
-// import { getToken, removeToken } from '../services/LocalStorageService';
-// import ChangePassword from './ChangePassword';
-// import { useGetLoggedUserQuery } from '../services/userAuthApi';
-// import { useEffect, useState } from 'react';
-// import { setUserInfo, unsetUserInfo } from '../features/userSlice';
+import { Button, CssBaseline, Grid, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { unSetUserToken } from '../features/authSlice';
+import { getToken, removeToken } from '../services/LocalStorageService';
+import ChangePassword from './ChangePassword';
+import { useGetLoggedUserQuery } from '../services/userAuthApi';
+import { useEffect, useState } from 'react';
+import { setUserInfo, unsetUserInfo } from '../features/userSlice';
 
 
-// const hello = (props) => {
+const hello = (props) => {
 //   const handleLogout = () => {
 //     dispatch(unsetUserInfo({ name: "", email: "",id:"" }))
 //     dispatch(unSetUserToken({ access_token: null }))
@@ -45,9 +45,12 @@
 //     }
 //   }, [data, isSuccess, dispatch])
 //   console.log(userData.id,props.ID )
-//   return <>
-//     HELLO BHAIMYA {props.id}
-//   </>;
-// };
+const location = useLocation();
+const {user} = location.state;
+  return <>
+    <h1>HELLO BHAIMYA {user}</h1>
+    {/* <Typography variant='h5'>id: {data.id}</Typography> */}
+  </>;
+};
 
-// export default hello;
+export default hello;

@@ -7,6 +7,7 @@ import ChangePassword from './ChangePassword';
 import { useGetLoggedUserQuery } from '../services/userAuthApi';
 import { useEffect, useState } from 'react';
 import { setUserInfo, unsetUserInfo } from '../features/userSlice';
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = (props) => {
@@ -14,13 +15,22 @@ const Dashboard = (props) => {
     dispatch(unsetUserInfo({ name: "", email: "",id:"" }))
     dispatch(unSetUserToken({ access_token: null }))
     removeToken()
-    navigate('/login')
+    // navigate('/login')
   }
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { access_token } = getToken()
   const { data, isSuccess } = useGetLoggedUserQuery(access_token)
 
+  const gotohello = () => {
+    console.log("ibdsefee");
+    navigate("/hello",{
+      state:{
+        user:props.id
+      }
+    })
+  }
+  
   const [userData, setUserData] = useState({
     email: "",
     name: "",
@@ -44,7 +54,7 @@ const Dashboard = (props) => {
       }))
     }
   }, [data, isSuccess, dispatch])
-  console.log(userData.id,props.ID )
+  // console.log(userData.id,props.ID )
   return <>
     <CssBaseline />
     <Grid container>
@@ -54,6 +64,7 @@ const Dashboard = (props) => {
         <Typography variant='h6'>Name: {userData.name}</Typography>
         <Typography variant='h6'>Id: {props.id}</Typography>
         <Button variant='contained' color='warning' size='large' onClick={handleLogout} sx={{ mt: 8 }}>Logout</Button>
+        <Button variant='contained' color='warning' size='large' onClick={gotohello}  sx={{ mt: 8 }}>Hello</Button>
       </Grid>
       <Grid item sm={8}>
         <ChangePassword />
