@@ -7,8 +7,12 @@ import Dashboard from "./DashBoard/Dashboard";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import { useSelector } from "react-redux";
+import {useGetLoggedUserQuery} from '../src/services/userAuthApi'
+
 function App() {
   const { access_token } = useSelector(state => state.auth)
+  const { data, isSuccess } = useGetLoggedUserQuery(access_token)
+  const userId=data?.id
   return (
     <>
       <BrowserRouter>
@@ -19,8 +23,8 @@ function App() {
             <Route path="login" element={!access_token ? <LoginReg /> : <Navigate to="/dashboard" />} />
             <Route path="sendpasswordresetemail" element={<SendPasswordResetEmail />} />
             <Route path="api/user/reset/:id/:token" element={<ResetPassword />} />
+            <Route path="/dashboard" element={access_token ? <Dashboard id={userId} /> : <Navigate to="/login" />} />
           </Route>
-          <Route path="/dashboard" element={access_token ? <Dashboard /> : <Navigate to="/login" />} />
           <Route path="*" element={<h1>Error 404 Page not found !!</h1>} />
         </Routes>
       </BrowserRouter>

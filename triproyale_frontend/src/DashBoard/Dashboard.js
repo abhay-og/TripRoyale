@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { setUserInfo, unsetUserInfo } from '../features/userSlice';
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const handleLogout = () => {
     dispatch(unsetUserInfo({ name: "", email: "",id:"" }))
     dispatch(unSetUserToken({ access_token: null }))
@@ -44,7 +44,7 @@ const Dashboard = () => {
       }))
     }
   }, [data, isSuccess, dispatch])
-
+  console.log(userData.id,props.ID )
   return <>
     <CssBaseline />
     <Grid container>
@@ -52,13 +52,14 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         <Typography variant='h5'>Email: {userData.email}</Typography>
         <Typography variant='h6'>Name: {userData.name}</Typography>
-        <Typography variant='h6'>Id: {userData.id}</Typography>
+        <Typography variant='h6'>Id: {props.id}</Typography>
         <Button variant='contained' color='warning' size='large' onClick={handleLogout} sx={{ mt: 8 }}>Logout</Button>
       </Grid>
       <Grid item sm={8}>
         <ChangePassword />
       </Grid>
     </Grid>
+    {/* <hello id={props.ID }></hello> */}
   </>;
 };
 
